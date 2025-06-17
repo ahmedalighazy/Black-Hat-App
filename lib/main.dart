@@ -1,16 +1,28 @@
+
+import 'package:black_hat_app/controller/block.dart';
+import 'package:black_hat_app/controller/cashe/cashe_Helper.dart';
+import 'package:black_hat_app/controller/dio/dio_helper.dart';
 import 'package:black_hat_app/core/helper/fake_data.dart';
 import 'package:black_hat_app/core/theme/app_theme.dart';
 import 'package:black_hat_app/ui/create_post_screen/new_post_screen.dart';
-import 'package:black_hat_app/ui/home_screen/home_screen.dart';
 import 'package:black_hat_app/ui/home_screen/widgets/app_bar.dart';
 import 'package:black_hat_app/ui/home_screen/widgets/bottom_navigationbar.dart';
 import 'package:black_hat_app/ui/notification_screen/notifications_screen.dart';
 import 'package:black_hat_app/ui/profile_screen/profile_screen.dart';
 import 'package:black_hat_app/ui/search_screen/search_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() => runApp(const MyApp());
+import 'ui/home_screen/home_screen.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = MyBlocObserver();
+  await CacheHelper.init();
+  DioHelper.init();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -23,15 +35,13 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Black Hat',
-              theme: appTheme,
-              home: const HomeScreen(),
-            );
-      } ,
+          debugShowCheckedModeBanner: false,
+          title: 'Black Hat',
+          theme: appTheme,
+          home: const HomeScreen(),
+        );
+      },
     );
-    
-    
   }
 }
 
@@ -61,6 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Icons.notifications,
     Icons.person,
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,9 +86,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: _getCurrentScreen(),
       bottomNavigationBar: bottomNavigationBar(
-          selectedIndex: _selectedIndex,
-          navIcons: _navIcons,
-          setState: (index) => setState(() => _selectedIndex = index)),
+        selectedIndex: _selectedIndex,
+        navIcons: _navIcons,
+        setState: (index) => setState(() => _selectedIndex = index),
+      ),
     );
   }
 
