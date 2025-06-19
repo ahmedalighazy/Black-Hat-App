@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget buildHomeScreen(Function(int) handleLike) {
   return FutureBuilder(
-      future: GetAllPostRemoteDataSourceImpl().getAllPosts(),
+      future: GetAllPostRemoteDataSourceImpl().getAllPosts(32),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(

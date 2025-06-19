@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-CircleAvatar postProfileImage(String userImage) {
-  return CircleAvatar(
-    backgroundColor: Colors.white,
-    radius: 20.r,
-    backgroundImage: AssetImage(userImage),
-    onBackgroundImageError: (exception, stackTrace) {
-      debugPrint('Error loading image: $exception');
-    },
-    child: userImage.isEmpty
-        ? Icon(Icons.person, size: 20.r, color: Colors.black12)
-        : null,
-  );
+class PostProfileImage extends StatelessWidget {
+  final String imageUrl;
+  PostProfileImage({required this.imageUrl});
+  @override
+  Widget build(BuildContext context) {
+    if (imageUrl.startsWith("http")) {
+      return CircleAvatar(
+        radius: 20,
+        backgroundImage: NetworkImage(imageUrl),
+      );
+    } else if (imageUrl.startsWith("/uploads")) {
+      return CircleAvatar(
+        radius: 20,
+        backgroundImage: NetworkImage("https://glowup.runasp.net$imageUrl"),
+      );
+    } else {
+      return CircleAvatar(
+        radius: 20,
+        backgroundImage: AssetImage(imageUrl),
+      );
+    }
+  }
 }
+

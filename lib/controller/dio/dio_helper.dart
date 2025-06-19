@@ -7,17 +7,19 @@ class DioHelper {
   static void init() {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://glowup.runasp.net/api/BlackHat',
+        baseUrl: 'https://glowup.runasp.net',
         receiveDataWhenStatusError: true,
         connectTimeout: const Duration(seconds: 10),
         receiveTimeout: const Duration(seconds: 10),
         headers: {'Content-Type': 'application/json'},
+
       ),
     );
   }
-  static Future<Response> getData(String endPoint){
-    return dio.get(baseUrl+endPoint,
+  static Future<Response> getData(String endPoint,{Map<String,dynamic>? queryParameters}){
+    return dio.get(endPoint,queryParameters: queryParameters ,
     options: Options(
+      responseType: ResponseType.json,
       validateStatus: (status)=> true
     )
     );

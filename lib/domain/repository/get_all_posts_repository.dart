@@ -1,8 +1,8 @@
+import 'package:black_hat_app/domain/entities/GetAllPostResponsesEntity.dart';
 import 'package:black_hat_app/domain/failures.dart';
 import 'package:dartz/dartz.dart';
 
-import '../entities/GetAllPostsResponsesEntity.dart';
 
 abstract class GetAllPostsRepository {
-  Future<Either<Failures, List<GetAllPostsResponsesEntity>>> getAllPosts();
+  Future<Either<Failures, List<GetAllPostResponsesEntity>>> getAllPosts(int userId);
 }

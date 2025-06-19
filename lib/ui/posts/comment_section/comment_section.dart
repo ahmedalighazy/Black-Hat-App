@@ -1,8 +1,9 @@
+import 'package:black_hat_app/data/models/GetAllCommentResponseDto.dart';
 import 'package:black_hat_app/ui/posts/widgets/post_profile_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget buildCommentsSection(List<dynamic> comments) {
+Widget buildCommentsSection(List<GetAllCommentResponseDto> comments) {
   return Column(
     children: [
       ...comments
@@ -14,28 +15,28 @@ Widget buildCommentsSection(List<dynamic> comments) {
                     Row(
                       children: [
                         // Profile Image
-                        postProfileImage(comment['profileImage']),
+                        // postProfileImage(comment['profileImage']),
                         SizedBox(width: 10.w),
                         Text(
-                          comment['user'],
+                          "${comment.userId ?? 'anonymous'}",
                           style: const TextStyle(
                             color: Colors.blueGrey,
                             fontSize: 12,
                           ),
                         ),
-                        SizedBox(width: 8.w),
-                        Text(
-                          comment['time'],
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 10,
-                          ),
-                        ),
+                        // SizedBox(width: 8.w),
+                        // Text(
+                        //   comment['time'],
+                        //   style: const TextStyle(
+                        //     color: Colors.grey,
+                        //     fontSize: 10,
+                        //   ),
+                        // ),
                       ],
                     ),
                     SizedBox(height: 4.h),
                     Text(
-                      comment['text'],
+                      comment.text ?? "anonymous",
                       style: const TextStyle(fontSize: 14),
                     ),
                   ],
