@@ -76,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(
+        context:  context,
         setState: (showSearch) {
           setState(() {
             _showSearch = !showSearch;
@@ -100,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
       case 1:
         return buildSearchScreen();
       case 2:
-        return buildNewPostScreen();
+        return NewPostScreen();
       case 3:
         return buildNotificationsScreen();
       case 4:
